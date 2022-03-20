@@ -2,6 +2,9 @@ package ru.javarush.dialog;
 
 import com.sun.source.doctree.SeeTree;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,11 +14,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 //Класс ввода и проверки исходных данных
+
 public class Dialog {
-    private Scanner scanner = new Scanner(System.in);
-    private String fileReadName = scanner.nextLine();
-    private String fileWriteName = scanner.nextLine();
-    private HashSet<String> forbiddenFiles = new HashSet<>();
+    private String fileReadName;
+    private String fileWriteName;
+
     private static final Set<String> FORBBIDEN_FILES_NAME = Set.of(".bash_history", ".bash_logout", ".bash_profile", ".bashrc",
             ".gtkrc", ".login", ".logout", ".profile", ".viminfo", ".wm_style", ".Xdefaults & .Xresources", ".xinitrc",
             ".xsession", "/boot/vmlinuz", "/dev/fd0H1440", "/dev/fd0", "/dev/hda", "/dev/hdc", "/dev/null", "/etc/aliases",
@@ -29,49 +32,64 @@ public class Dialog {
             "/proc", "/root", "/sbin", "/tmp", "/usr", "/usr/bin", "/usr/include", "/usr/share", "/usr/lib", "/usr/local/bin",
             "/usr/sbin", "/var");
 
-    // Проверка только для введенного файла для записи
-    private boolean checkFileName(String fileName) {
-        boolean result = false;
-        for (String name : FORBBIDEN_FILES_NAME) {
-//            TODO: Подумать, может нужо сделать исключение
-            if (!fileName.contains(name)) {
-                result = true;
-            } else {
-                System.out.println("В данный файл запрещен для записи. Просьба выбрать другой источник");
-                result = false;
-                break;
-            }
-        }
-        return result;
+    public Dialog(String fileReadName, String fileWriteName) {
+        this.fileReadName = fileReadName;
+        this.fileWriteName = fileWriteName;
+        checkFileName(fileWriteName);//TODO: подумать! нехорошо завязывать логику в конструктор
     }
 
-    //    Метод для чтения данных из файла
-    private List<String> readFile(String fileReadName) {
+    //Проверка файла для записи
+    private void checkFileName(String fileName) {
+        for (String name : FORBBIDEN_FILES_NAME) {
+            if (fileName.contains(name)) {
+                throw new DialogUserException("Данный файл запрещен для записи.\n Просьба выбрать другой источник");
+            }
+        }
+    }
+
+    public List<String> readFile() {
         Path fileRead = Path.of(fileReadName);
-        //  считываем все данные из указанного пользователем файла и результат записываем в лист
         List<String> list = new ArrayList<>();
-        // TODO: посмотреть в доке закроется ли поток
-        try {
-//            list = Files.lines(fileRead).collect(Collectors.toList());
-            list = Files.readAllLines(fileRead);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileReadName))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                list.add(line);
+                list.add("\n");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден. Проверьте, пожалуйста, имя файла " + e.getMessage());
         } catch (IOException e) {
-//            TODO: подумать над комметом
-            System.out.println("При чтении данных из файла возникла ошибка" + e.getMessage());
+            System.out.println("При чтении данных из файла возникла ошибка " + e.getMessage());
         }
         return list;
     }
 
-    //  Метод для записи данных из файла
-    private void writeFile(String fileWriteName, List<String> file) {
+//    public List<String> readFile() {
+//        Path fileRead = Path.of(fileReadName);
+//        List<String> list = new ArrayList<>();
+//        // TODO: посмотреть в доке закроется ли поток
+//        try {
+//            list = Files.readAllLines(fileRead);
+//            System.out.println("Данные успешно получены из файла");
+//        } catch (SecurityException e) {
+//            System.out.println("Возникла ошибка доступа к чтению файла" + e.getMessage());
+//        } catch (IOException e) {
+//            System.out.println("При чтении данных из файла возникла ошибка" + e.getMessage());
+//        }
+//        return list;
+//    }
+
+    public void writeFile(List<String> dataWrite) {
         Path fileWrite = Path.of(fileWriteName);
-        //  считываем все данные из указанного пользователем файла и результат записываем в лист
-        List<String> list = new ArrayList<>();
-        // TODO: посмотреть в доке закроется ли поток
         try {
-            for (String str : file)
+            for (String str : dataWrite) {
                 Files.writeString(fileWrite, str, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            }
+            System.out.println("Данные успешно записаны в файл");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Некорректно заданы настройки записи в файл: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("");
+            System.out.println("Возникла ошибка при записи данных в файл: " + e.getMessage());
         }
     }
 }
