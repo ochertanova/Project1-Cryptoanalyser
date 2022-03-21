@@ -7,46 +7,19 @@ import java.util.List;
 public class Cryptoanalyser {
     private int key;
     private List<String> file;
-//    private List<String> fileToEncrypt;
-//    private List<String> fileToDecipher;
 
     public Cryptoanalyser(int key, List<String> file) {
         this.key = key;
         this.file = file;
     }
-//    public Cryptoanalyser(int key, List<String> fileToEncrypt) {
-//        this.key = key;
-//        this.fileToEncrypt = fileToEncrypt;
-//    }
-//
-//    public Cryptoanalyser(int key, List<String> fileToEncrypt, List<String> fileToDecipher) {
-//        this.key = key;
-//        this.fileToEncrypt = fileToEncrypt;
-//        this.fileToDecipher = fileToDecipher;
-//    }
-
-//    public Cryptoanalyser(int key, List<String> fileToDecipher) {
-//        this.key = key;
-//        this.fileToEncrypt = fileToEncrypt;
-//        this.fileToDecipher = fileToDecipher;
-//    }
-
-//    private static final char[] ALPHABET_INGLISH = new char[]{'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'i', 'I', 'f', 'F',
-//            'g', 'G', 'h', 'H', 'i', 'I', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q',
-//            'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', '.', ',', '"', ':',
-//            '-', '!', '?', ' '};
-//
-//    private static final char[] ALPHABET_RUSSIAN = new char[]{'а', 'А', 'б', 'Б', 'в', 'В', 'г', 'Г', 'д', 'Д', 'е', 'Е',
-//            'ё', 'Ё', 'ж', 'Ж', 'з', 'З', 'и', 'И', 'й', 'Й', 'к', 'К', 'л', 'Л', 'м', 'М', 'н', 'Н', 'о', 'О', 'п', 'П',
-//            'р', 'Р', 'с', 'С', 'т', 'Т', 'у', 'У', 'ф', 'Ф', 'х', 'Х', 'ц', 'Ц', 'ч', 'Ч', 'ш', 'Ш', 'щ', 'Щ', 'ъ', 'Ъ',
-//            'ы', 'Ы', 'ь', 'Ь', 'э', 'Э', 'ю', 'Ю', 'я', 'Я', '.', ',', '"', ':', '-', '!', '?', ' '};
 
     private static final char[] ALPHABET = new char[]{'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'i', 'I', 'f', 'F',
             'g', 'G', 'h', 'H', 'i', 'I', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q',
-            'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', 'а', 'А', 'б', 'Б', 'в', 'В', 'г', 'Г', 'д', 'Д', 'е', 'Е',
-            'ё', 'Ё', 'ж', 'Ж', 'з', 'З', 'и', 'И', 'й', 'Й', 'к', 'К', 'л', 'Л', 'м', 'М', 'н', 'Н', 'о', 'О', 'п', 'П',
-            'р', 'Р', 'с', 'С', 'т', 'Т', 'у', 'У', 'ф', 'Ф', 'х', 'Х', 'ц', 'Ц', 'ч', 'Ч', 'ш', 'Ш', 'щ', 'Щ', 'ъ', 'Ъ',
-            'ы', 'Ы', 'ь', 'Ь', 'э', 'Э', 'ю', 'Ю', 'я', 'Я', '.', ',', '"', ':', '-', '!', '?', ' '};
+            'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', 'а', 'А', 'б', 'Б',
+            'в', 'В', 'г', 'Г', 'д', 'Д', 'е', 'Е', 'ё', 'Ё', 'ж', 'Ж', 'з', 'З', 'и', 'И', 'й', 'Й', 'к', 'К', 'л', 'Л',
+            'м', 'М', 'н', 'Н', 'о', 'О', 'п', 'П', 'р', 'Р', 'с', 'С', 'т', 'Т', 'у', 'У', 'ф', 'Ф', 'х', 'Х', 'ц', 'Ц',
+            'ч', 'Ч', 'ш', 'Ш', 'щ', 'Щ', 'ъ', 'Ъ', 'ы', 'Ы', 'ь', 'Ь', 'э', 'Э', 'ю', 'Ю', 'я', 'Я', '.', ',', '"', ':',
+            '-', '!', '?', ' '};
 
     // Шифрование данных
     public List<String> encrypt() {
@@ -55,6 +28,7 @@ public class Cryptoanalyser {
         for (String letter : file) {
             addToCrypt(letter, fileEncrypt);
         }
+        System.out.println("Данные из файла зашифрованы");
         return fileEncrypt;
     }
 
@@ -65,21 +39,23 @@ public class Cryptoanalyser {
         for (String letter : file) {
             addToDecrypt(letter, fileDecrypt);
         }
+        System.out.println("Данные из файла расшифрованы");
         return fileDecrypt;
     }
 
     private void checkKey(int checkKey) {
-        if (checkKey <= ALPHABET.length - 1 || checkKey % ALPHABET.length > 0) {
+        if (checkKey != 0 && (checkKey <= ALPHABET.length - 1 || checkKey % ALPHABET.length > 0)) {
             // Если ключ больше длины алфавита, изменяем его, чтобы не делать лишние круги
             changeKey(checkKey);
         } else {
-            throw new CryptoanalyserExeption("Введите, пожалуйста, ключ, отличный от кратного длине алфавита - " + ALPHABET.length);
+            throw new CryptoanalyserExeption("Ключ должен быть отличен от нуля и не кратен длине алфавита - " + ALPHABET.length);
         }
     }
 
     private void changeKey(int checkKey) {
         if (checkKey > ALPHABET.length) {
             key = checkKey % ALPHABET.length;
+            System.out.println("Ключ пересчитан на значение - " + key);
         }
     }
 
