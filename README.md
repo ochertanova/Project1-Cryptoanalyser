@@ -69,21 +69,21 @@
 
 Подготовлен файл с текстом
 
-![img.png](img.png)
+![img.png](src/java/screenshots/img.png)
 
 Результат запуска программы:
 
-![img_1.png](img_1.png)
+![img_1.png](src/java/screenshots/img_1.png)
 
 Содержимое файла с шифром:
 
-![img_4.png](img_4.png)
+![img_4.png](src/java/screenshots/img_4.png)
 
 В словаре отсутствует символ "\", поэтому в шифр передан без изменений.
 
 Содержимое файла с расшифровкой:
 
-![img_3.png](img_3.png)
+![img_3.png](src/java/screenshots/img_3.png)
 
 Результат: Текст полностью соответствует исходному файлу.
 
@@ -91,21 +91,21 @@
 
 Подготовлен файл с текстом:
 
-![img_25.png](img_25.png)
+![img_25.png](src/java/screenshots/img_25.png)
 
 Запуск программы:
 
-![img_26.png](img_26.png)
+![img_26.png](src/java/screenshots/img_26.png)
 
 Так как ключ больше длины словаря, то в методе `changeKey` выполнен перерасчет значения ключа.
 
 Содержимое файла с шифром
 
-![img_24.png](img_24.png)
+![img_24.png](src/java/screenshots/img_24.png)
 
 Содержимое файла с расшифровкой:
 
-![img_27.png](img_27.png)
+![img_27.png](src/java/screenshots/img_27.png)
 
 Результат:Текст полностью соответствует исходному файлу.
 
@@ -113,19 +113,19 @@
 
 Подготовлен файл с текстом:
 
-![img_20.png](img_20.png)
+![img_20.png](src/java/screenshots/img_20.png)
 
 Запуск программы:
 
-![img_22.png](img_22.png)
+![img_22.png](src/java/screenshots/img_22.png)
 
 Содержимое файла с шифром
 
-![img_21.png](img_21.png)
+![img_21.png](src/java/screenshots/img_21.png)
 
 Содержимое файла с расшифровкой:
 
-![img_23.png](img_23.png)
+![img_23.png](src/java/screenshots/img_23.png)
 
 Результат:Текст полностью соответствует исходному файлу.
 
@@ -133,13 +133,13 @@
 
 Запуск программы
 
-![img_10.png](img_10.png)
+![img_10.png](src/java/screenshots/img_10.png)
 
 ###5. Неуспешный результат. Передан ключ кратный длине словаря
 
-![img_11.png](img_11.png)
+![img_11.png](src/java/screenshots/img_11.png)
 
 ###6. Неуспешный результат. Передан запрещенный файл для записи
 
-![img_12.png](img_12.png)
+![img_12.png](src/java/screenshots/img_12.png)
 
