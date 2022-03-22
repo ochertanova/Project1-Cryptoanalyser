@@ -13,7 +13,7 @@ public class Cryptoanalyser {
         this.file = file;
     }
 
-    private static final char[] ALPHABET = new char[]{'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'i', 'I', 'f', 'F',
+    private static final char[] ALPHABET = new char[]{'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F',
             'g', 'G', 'h', 'H', 'i', 'I', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q',
             'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', 'а', 'А', 'б', 'Б',
             'в', 'В', 'г', 'Г', 'д', 'Д', 'е', 'Е', 'ё', 'Ё', 'ж', 'Ж', 'з', 'З', 'и', 'И', 'й', 'Й', 'к', 'К', 'л', 'Л',
@@ -65,10 +65,13 @@ public class Cryptoanalyser {
             String newLetter = "";
             for (int i = 0; i < ALPHABET.length; i++) {
                 if (letters[j].equals(String.valueOf(ALPHABET[i]))) {
-                    if (i + key <= ALPHABET.length - 1) {
+                    if ((i + key) > 0 && (i + key <= ALPHABET.length - 1)) {
                         newLetter = String.valueOf(ALPHABET[i + key]);
-                    } else {
+                    } else if ((i + key) > 0 && (i + key > ALPHABET.length - 1)) {
                         int diff = (i + key) - ALPHABET.length;
+                        newLetter = String.valueOf(ALPHABET[diff]);
+                    } else {
+                        int diff = (i + key) + ALPHABET.length;
                         newLetter = String.valueOf(ALPHABET[diff]);
                     }
                     fileEncrypt.add(newLetter);
@@ -76,6 +79,7 @@ public class Cryptoanalyser {
                 }
             }
             // добавляем в файл символ без изменения, который отсутствует в алфавите
+            //  TODO: одинаковый код и в методе addToDecrypt(). Хотела вынести в отдельный метод, но не получилось. Имеет место быть в коде подобное?
             if (newLetter.equals("")) {
                 fileEncrypt.add(letters[j]);
             }
@@ -88,9 +92,12 @@ public class Cryptoanalyser {
             String newLetter = "";
             for (int i = 0; i < ALPHABET.length; i++) {
                 if (letters[j].equals(String.valueOf(ALPHABET[i]))) {
-                    if (i - key >= 0) {
+                    if ((i - key) >= 0 && (i - key) <= ALPHABET.length - 1) {
                         newLetter = String.valueOf(ALPHABET[i - key]);
-                    } else {
+                    } else if ((i - key) >= 0 && (i - key) > ALPHABET.length - 1) {
+                        int diff = (i - key) - ALPHABET.length;
+                        newLetter = String.valueOf(ALPHABET[diff]);
+                    } else if ((i - key) < 0) {
                         int diff = (i - key) + ALPHABET.length;
                         newLetter = String.valueOf(ALPHABET[diff]);
                     }

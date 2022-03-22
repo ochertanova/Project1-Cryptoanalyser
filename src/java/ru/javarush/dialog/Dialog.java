@@ -1,14 +1,11 @@
 package ru.javarush.dialog;
 
-import com.sun.source.doctree.SeeTree;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.sql.Struct;
 import java.util.*;
-import java.util.stream.Collectors;
 
 //Класс ввода и проверки исходных данных
 
@@ -32,7 +29,7 @@ public class Dialog {
     public Dialog(String fileReadName, String fileWriteName) {
         this.fileReadName = fileReadName;
         this.fileWriteName = fileWriteName;
-        checkFileName(fileWriteName);//TODO: подумать! нехорошо завязывать логику в конструктор
+        checkFileName(fileWriteName);//TODO: знаю, что лучше не завязывать логику в конструктор, но в данном случае, мне кажется лучше сразу проверить имя файла.Можно использовать?
     }
 
     //Проверка файла для записи
@@ -60,21 +57,6 @@ public class Dialog {
         }
         return list;
     }
-
-//    public List<String> readFile() {
-//        Path fileRead = Path.of(fileReadName);
-//        List<String> list = new ArrayList<>();
-//        // TODO: посмотреть в доке закроется ли поток
-//        try {
-//            list = Files.readAllLines(fileRead);
-//            System.out.println("Данные успешно получены из файла");
-//        } catch (SecurityException e) {
-//            System.out.println("Возникла ошибка доступа к чтению файла" + e.getMessage());
-//        } catch (IOException e) {
-//            System.out.println("При чтении данных из файла возникла ошибка" + e.getMessage());
-//        }
-//        return list;
-//    }
 
     public void writeFile(List<String> dataWrite) {
         Path fileWrite = Path.of(fileWriteName);
